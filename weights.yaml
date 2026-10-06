@@ -1,0 +1,5 @@
+files:
+  - repo: arena-rosnav/iplanner
+    filename: plannernet_state_dict.pt
+    dest: model/plannernet_state_dict.pt
+    sha256: beccb331e782130b4ebe7738020af89104a94e993f8a95f1b5dfec1a9ebf6cb4

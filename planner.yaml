@@ -1,0 +1,62 @@
+action_type: waypoints
+rate_hz: 10
+sensor_needs: [depth]
+controls_orientation: false
+goal_inputs: [pose]
+signals: [arrived]
+
+chunk:
+  execute_s: 0.1
+  lookahead_m: 0.25
+  speed_mps: 1.5
+
+depends:
+  global_plan: true
+
+config:
+  device: auto
+  depth_max: 10.0
+  image_flip: false
+  conv_dist: 0.25
+  is_fear_act: false
+  buffer_size: 3
+  angular_thred: 0.5
+  track_dist: 0.5
+
+observations:
+  aliases: {}
+
+  datasources:
+    robot_pose:
+      type: RobotPoseTFGenerator
+      params: {}
+
+    depth:
+      type: sensor_msgs/Image
+      params:
+        sensor: depth
+        output_size: [640, 360]
+
+    robot_pose_from_tf:
+      type: RobotPoseTFGenerator
+      params: {}
+
+    goal_pose:
+      type: geometry_msgs/PoseStamped
+      params:
+        topic: goal_pose
+
+    global_plan:
+      type: nav_msgs/Path
+      params:
+        topic: plan
+
+    costmap:
+      type: nav_msgs/OccupancyGrid
+      params:
+        topic: global_costmap/costmap
+
+    subgoal:
+      type: SubgoalGenerator
+      params:
+        lookahead: 6.0
